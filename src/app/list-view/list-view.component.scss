@@ -1,0 +1,25 @@
+
+table{
+    width: 100%;
+}
+mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+.filter{
+    float: right;
+    width: 40%;
+}
+
+.mat-toolbar{
+font-size:xx-large;
+font-weight: lighter;
+}
+.addFlex{
+    display: flex;
+    justify-content: space-between;
+}
+.container{
+    max-width: 1200px;
+    margin: 0 auto;
+}

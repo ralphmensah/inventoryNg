@@ -1,0 +1,19 @@
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.total {
+    float: right;
+    font-size: small;
+    font-weight: 500;
+}
+
+.button-group {
+    display: flex;
+    flex-direction: row;
+}
+
+#id {
+    margin-left: 2rem;
+}
