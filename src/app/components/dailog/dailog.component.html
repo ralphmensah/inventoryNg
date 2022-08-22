@@ -1,6 +1,6 @@
 <div mat-dialog-title>
   Add Item
-  <span class="total">Total: {{total}}GHS</span>
+  <span class="total">Total: {{total | currency:'GHS '}}</span>
 </div>
 <div mat-dialog-content>
   <form [formGroup]="form.itemForm" (ngSubmit)="onSubmit()">

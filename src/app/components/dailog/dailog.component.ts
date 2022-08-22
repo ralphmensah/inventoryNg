@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef,MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ApiService } from '../services/api.service';
-import { FormService } from '../services/form.service';
+import { ApiService } from '../../services/api.service';
+import { FormService } from '../../services/form.service';
 
 
 @Component({
@@ -53,8 +53,8 @@ export class DailogComponent implements OnInit {
     }else{
       this.updateItem()
     }
-    
   }
+  
   updateItem() {
     const updated_date = new Date().toString()
       let itemObj = {

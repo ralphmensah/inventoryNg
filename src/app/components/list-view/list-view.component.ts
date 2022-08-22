@@ -1,13 +1,13 @@
-import { Component, ViewChild, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Item } from 'src/app/model/Item.model';
-import { ApiService } from '../services/api.service';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { ApiService } from '../../services/api.service';
+import { MatDialog } from '@angular/material/dialog';
 import { DailogComponent } from '../dailog/dailog.component';
-import { Observable } from 'rxjs';
+import { preserveWhitespacesDefault } from '@angular/compiler';
 
 @Component({
   selector: 'app-list-view',
@@ -16,8 +16,10 @@ import { Observable } from 'rxjs';
 })
 export class ListViewComponent implements OnInit {
 
-  displayedCols: string[] = ['id', 'name', 'date', 'update','quantity', 'price', 'total', 'actions']
+  displayedCols: string[] = ['name', 'date', 'update','quantity', 'price', 'total', 'actions']
   dataSource!: MatTableDataSource<Item>;
+  totalNumberOfItems: number = 0;
+  totalPriceOfAllItems : number  = 0;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -26,14 +28,20 @@ export class ListViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllItems();
+    
+    
   }
 
   private getAllItems() {
     return this.api.getAllItems().subscribe(
       {
-        next: (res: Item[]) => {this.dataSource = new MatTableDataSource(res);
+        next: (res: Item[]) => {
+        this.dataSource = new MatTableDataSource(res.reverse());
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.totalNumberOfItems = res.length;
+        this.totalPriceOfAllItems = res.reduce((x, y)=> x + y.total,0)
+        console.log('total price',this.totalPriceOfAllItems);
         console.log(res);
         
         },
@@ -85,6 +93,11 @@ export class ListViewComponent implements OnInit {
         this.getAllItems();
       }})
 
+  }
+
+  sellIem(){
+    console.log('sell item');
+    
   }
 
 }
